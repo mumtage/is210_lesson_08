@@ -14,7 +14,8 @@ class ChessPiece(object):
     Attributes:
         position (string): the space the piece occupies in tile notation.
         prefix (string): Default = ''
-        moves (list): a list that stores tuples of info the piece's history of moves.
+        moves (list): a list that stores tuples of info the piece's
+        history of moves.
     """
     prefix = ''
 
@@ -33,7 +34,7 @@ class ChessPiece(object):
             tile (alnum): alphanumeric tile position.
         """
 
-        alphas = ['a','b','c','d','e','f','g','h']
+        alphas = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
         nums = ['1', '2', '3', '4', '5', '6', '7', '8']
 
         if len(tile) == 2:
@@ -41,7 +42,7 @@ class ChessPiece(object):
                 if tile[1] in nums:
                     for i in range(8):
                         if tile[0] == alphas[i]:
-                            tile_coord = ((int(nums[i]) - 1),int(tile[1]) - 1)
+                            tile_coord = ((int(nums[i]) - 1), int(tile[1]) - 1)
                 else:
                     return None
             else:
@@ -55,8 +56,8 @@ class ChessPiece(object):
         """Checks legality of a possible move.
 
         Args:
-            position(string): the new position to which this piece should be moved,
-            in tile notation.
+            position(string): the new position to which this piece should
+            be moved, in tile notation.
         """
 
         legal = self.algebraic_to_numeric(position)
@@ -79,7 +80,8 @@ class ChessPiece(object):
         if legal:
             temp = self.position
             self.position = position
-            move = (self.prefix + temp, self.prefix + self.position, time.time())
+            move = (self.prefix + temp, self.prefix +
+                    self.position, time.time())
             self.moves.append(move)
             return move
         else:
@@ -95,9 +97,10 @@ class Rook(ChessPiece):
     Attributes:
         position (string): the space the piece occupies in tile notation.
         prefix (string): Default = 'R' for Rook
-        moves (list): a list that stores tuples of info the piece's history of moves.
+        moves (list): a list that stores tuples of info the piece's
+        history of moves.
     """
-    
+
     def __init__(self, position):
         self.position = position
         if not ChessPiece.is_legal_move(self, self.position):
@@ -105,27 +108,25 @@ class Rook(ChessPiece):
             raise ValueError(excep.format(position))
         self.moves = []
         self.prefix = 'R'
-        
+
     def is_legal_move(self, position):
         """Checks legality of a possible move for Rooks.
 
         Args:
-            position(string): the new position to which this piece should be moved,
-            in tile notation.
+            position(string): the new position to which this piece
+            should be moved, in tile notation.
         """
 
         legal = self.algebraic_to_numeric(position)
 
         if legal is None:
             return False
-        elif legal == self.algebraic_to_numeric(
-            self.position):
+        elif legal == self.algebraic_to_numeric(self.position):
             return False
         elif legal[0] == self.algebraic_to_numeric(
             self.position)[0] or legal[1] == self.algebraic_to_numeric(
                 self.position)[1]:
             return True
-            
 
 
 class Bishop(ChessPiece):
@@ -137,7 +138,8 @@ class Bishop(ChessPiece):
     Attributes:
         position (string): the space the piece occupies in tile notation.
         prefix (string): Default = 'B' for bishop
-        moves (list): a list that stores tuples of info the piece's history of moves.
+        moves (list): a list that stores tuples of info the piece's
+        history of moves.
     """
 
     def __init__(self, position):
@@ -152,14 +154,14 @@ class Bishop(ChessPiece):
         """Checks legality of a possible move for Bishops.
 
         Args:
-            position(string): the new position to which this piece should be moved,
-            in tile notation.
+            position(string): the new position to which this piece
+            should be moved, in tile notation.
         """
 
         cur_pos = self.algebraic_to_numeric(self.position)
         legal = self.algebraic_to_numeric(position)
         possibles = []
-        
+
         if legal is None:
             return False
         else:
@@ -201,20 +203,20 @@ class King(ChessPiece):
         """Checks legality of a possible move for the King.
 
         Args:
-            position(string): the new position to which this piece should be moved,
-            in tile notation.
+            position(string): the new position to which this piece
+            should be moved, in tile notation.
         """
 
         cur_pos = self.algebraic_to_numeric(self.position)
         legal = self.algebraic_to_numeric(position)
         possibles = []
-        
+
         if legal is None:
             return False
         else:
             for i in range(cur_pos[0] - 1, cur_pos[0] + 2):
                 for j in range(cur_pos[1] - 1, cur_pos[1] + 2):
-                    possibles.append((i,j))
+                    possibles.append((i, j))
             if (legal in possibles) and (legal != cur_pos):
                 return True
             else:
@@ -262,4 +264,3 @@ class ChessMatch(object):
 
     def __len__(self):
         return len(self.log)
-        

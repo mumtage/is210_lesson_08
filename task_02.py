@@ -15,7 +15,6 @@ class Car(object):
        tires (list): The car's tires.
     """
 
-
     def __init__(self, color='red', tires=None):
         self.color = color
         self.tires = tires
@@ -23,7 +22,6 @@ class Car(object):
             self.tires = []
             for i in range(4):
                 self.tires.append(Tire())
-            
 
 
 class Tire(object):
@@ -36,7 +34,7 @@ class Tire(object):
        miles (integer): The number of miles on the Tire.
     """
 
-    __maximum_mileage = 500
+    __maximum_miles = 500
 
     def __init__(self, miles=0):
         self.miles = miles

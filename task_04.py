@@ -15,6 +15,5 @@ class Tigerpaw(task_02.Tire):
        miles (integer): The number of miles on the Tire.
     """
 
-
     def __init__(self):
-        __maximum_mileage = 750
+        __maximum_miles = 750

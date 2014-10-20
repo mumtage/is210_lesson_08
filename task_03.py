@@ -10,9 +10,7 @@ class Snapshot(object):
 
     Attributes:
         created = Unix Timestamp of when Snapshot was created.
-
     """
-
 
     def __init__(self):
         self.created = time.time()
